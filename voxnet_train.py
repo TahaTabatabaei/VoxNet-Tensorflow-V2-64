@@ -23,7 +23,7 @@ p['weights_decay'] = tf.train.GradientDescentOptimizer(p['learning_rate']).minim
 
 # Hyperparameters
 
-epoch_count = 10
+epoch_count = 20 # 10 for default
 batch_size = 64
 
 initial_learning_rate = 0.001
@@ -34,6 +34,8 @@ num_batches_per_epoch = int(len(dataset.train) / float(batch_size))
 #num_batches = 2147483647   # why, this is so big
 num_batches = num_batches_per_epoch * epoch_count
 print("num_batches_per_epoch = ", num_batches_per_epoch)
+print(f"data len = {len(dataset.train)}")
+
 learning_decay = 10 * num_batches_per_epoch
 weights_decay_after = 5 * num_batches_per_epoch
 
@@ -97,7 +99,7 @@ with tf.Session() as session:
 				print("decreasing learning rate...")
 			min_loss = min(loss, min_loss)
 
-		if batch_index and batch_index % 2048 == 0:
+		if batch_index and batch_index % 1024 == 0:
 			num_accuracy_batches = 30
 			total_accuracy = 0
 			for x in range(num_accuracy_batches):

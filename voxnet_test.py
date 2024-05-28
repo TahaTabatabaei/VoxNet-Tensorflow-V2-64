@@ -16,7 +16,8 @@ batch_size = 64
 lines = open('checkpoints/accuracies.txt').readlines()
 
 #checkpoint_num = int(max([map(float, l.split()) for l in lines], key=lambda x:x[2])[0])
-checkpoint_num = int(max([float(l.split()[0]) for l in lines]))
+# checkpoint_num = int(max([float(l.split()[0]) for l in lines]))
+checkpoint_num = 11 # as in c-11.npz
 
 with tf.Session() as session:
 	session.run(tf.global_variables_initializer())
