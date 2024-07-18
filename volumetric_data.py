@@ -113,3 +113,20 @@ class ShapeNet40Vox30(object):
 			voxs[bi, ox:30+ox,oy:30+oy,oz:30+oz] = d
 			one_hots[bi][v.label] = 1
 		return voxs, one_hots
+	
+
+	def get_sample_by_filename(self, filename):
+		rn = random.randint
+		voxs = np.zeros([1, 32,32,32, 1], dtype=np.float32)
+		one_hot = np.zeros([1, self.num_categories], dtype=np.float32)
+		for v in self._data['train'] + self._data['test']:
+			if v.filename == filename:
+				d = v.voxels.reshape([30,30,30, 1])
+				for axis in 0,1,2:
+					if rn(0,1):
+						d = np.flip(d, axis)
+				ox, oy, oz = rn(0,2), rn(0,2), rn(0,2)
+				voxs[0, ox:30+ox,oy:30+oy,oz:30+oz] = d
+				one_hot[0][v.label] = 1
+				return voxs, one_hot
+		raise ValueError(f'Sample with filename {filename} not found.')
