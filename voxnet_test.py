@@ -12,7 +12,7 @@ p['correct_prediction'] = tf.equal(tf.argmax(voxnet[-1], 1), tf.argmax(p['labels
 p['accuracy'] = tf.reduce_mean(tf.cast(p['correct_prediction'], tf.float32))
 
 num_batches = 2147483647
-batch_size = 64
+batch_size = 16 # 64 default
 lines = open('checkpoints/accuracies.txt').readlines()
 
 #checkpoint_num = int(max([map(float, l.split()) for l in lines], key=lambda x:x[2])[0])
@@ -30,5 +30,5 @@ with tf.Session() as session:
 		feed_dict = {voxnet[0]: voxs, p['labels']: labels}
 		total_accuracy += session.run(p['accuracy'], feed_dict=feed_dict)
 		test_accuracy = total_accuracy / (batch_index+1)
-		if batch_index % 32 == 0:
-			print('average test accuracy: {}'.format(test_accuracy))
+		if batch_index % batch_size == 0:
+			print('batch {} average test accuracy: {:.3f}'.format(batch_index, test_accuracy*100))

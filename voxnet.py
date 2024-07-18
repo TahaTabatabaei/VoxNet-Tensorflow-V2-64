@@ -42,6 +42,7 @@ class VoxNet(BaseNet):
 			self.fc('fc1', 128)
 			self.fc('fc2', 40, batch_norm=False, relu=False)
 			self.softmax('softmax')
+			print("A")
 
 		elif voxnet_type == 'all_conv':
 			self.conv3d('conv1', 64, 5, 2)
@@ -51,6 +52,7 @@ class VoxNet(BaseNet):
 			self.fc('fc1', 128)
 			self.fc('fc2', 40, batch_norm=False, relu=False)
 			self.softmax('softmax')
+			print("B")
 
 if __name__ == '__main__':
 	voxnet = VoxNet()
