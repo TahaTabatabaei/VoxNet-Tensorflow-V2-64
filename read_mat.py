@@ -28,9 +28,9 @@ def creat_pointcloud(mat_dictionary, grid_size):
     
     return point_cloud
 
-def voxelize(point_cloud):
+def voxelize(point_cloud, voxel_size=0.05):
     # Create a voxel grid from the point cloud with a voxel_size of 0.01
-    voxel_grid=o3d.geometry.VoxelGrid.create_from_point_cloud(point_cloud,voxel_size=0.01)
+    voxel_grid=o3d.geometry.VoxelGrid.create_from_point_cloud(point_cloud,voxel_size)
 
     return voxel_grid
 
